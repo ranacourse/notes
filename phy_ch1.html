@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1: Electrostatics | Dr. Sohel Rana Physics Portal</title>
+    <style>
+        :root {
+            --primary-bg: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --text-main: #334155;
+            --accent-blue: #2563eb;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --shadow-3d: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--primary-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow-3d);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-title {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 0 #1e40af;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #1e40af;
+        }
+
+        /* Main Layout with Sidebar Navigation */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 80vh;
+        }
+
+        /* Sticky Side Menu */
+        .sidebar {
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 30px 20px;
+            position: sticky;
+            top: 0;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            font-size: 1rem;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 10px 14px;
+            color: #475569;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background: var(--accent-light);
+            color: var(--accent-blue);
+            padding-left: 18px;
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        h1.chapter-heading {
+            font-size: 2.2rem;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .chapter-subtitle {
+            font-size: 1.05rem;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 6px solid var(--accent-blue);
+            padding: 20px 25px;
+            border-radius: 12px;
+            margin-bottom: 35px;
+            font-style: italic;
+            color: #1e3a8a;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        }
+
+        .quote-author {
+            display: block;
+            text-align: right;
+            font-weight: bold;
+            font-style: normal;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* Sections */
+        .section-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+        }
+
+        .section-box h2 {
+            font-size: 1.5rem;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .section-box p {
+            line-height: 1.7;
+            color: #475569;
+            margin-bottom: 15px;
+            font-size: 1.02rem;
+        }
+
+        /* Math Equation Styling */
+        .math-eq {
+            background: #f8fafc;
+            border: 1px dashed var(--accent-blue);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        /* Tables */
+        table.formula-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        table.formula-table th, table.formula-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table.formula-table th {
+            background: #f1f5f9;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        table.formula-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        /* Video Frame Box */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 4px solid #cbd5e1;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            margin-top: 15px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .swayam-link-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .swayam-btn {
+            background: #16a34a;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 0 #15803d;
+        }
+
+        /* Quiz Section Styles */
+        .quiz-container {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .question-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-card p.q-text {
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .options-list label {
+            display: block;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .options-list label:hover {
+            background: var(--accent-light);
+            border-color: #93c5fd;
+        }
+
+        .options-list input {
+            margin-right: 10px;
+        }
+
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fef3c7;
+            border-left: 4px solid #d97706;
+            font-size: 0.9rem;
+            color: #92400e;
+            border-radius: 6px;
+        }
+
+        .submit-quiz-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #1e40af, 0 6px 12px rgba(37,99,235,0.3);
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .submit-quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #1e40af;
+        }
+
+        #quiz-score-display {
+            display: none;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #16a34a;
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            body { padding: 10px; }
+            .content-area { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <nav class="navbar">
+            <span class="nav-title">Dr. Sohel Rana | Physics Chapter 1</span>
+            <a href="physics.html" class="back-btn">⬅ Back to Physics Hub</a>
+        </nav>
+
+        <div class="main-layout">
+            
+            <!-- Sidebar Quick Links -->
+            <aside class="sidebar">
+                <h3>Chapter Menu</h3>
+                <ul>
+                    <li><a href="#history">📜 Historical Background</a></li>
+                    <li><a href="#notes">📖 Simple Notes & Concepts</a></li>
+                    <li><a href="#formulas">📐 Formula Quick Table</a></li>
+                    <li><a href="#video">🎥 Revision & SWAYAM Video</a></li>
+                    <li><a href="#quiz">📝 25 MCQs Practice Quiz</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content Container -->
+            <main class="content-area">
+                
+                <h1 class="chapter-heading">Unit I: Electrostatics</h1>
+                <p class="chapter-subtitle">Weightage: 09 Marks[cite: 4] | Master electric charges, Coulomb's force, fields, Gauss's law, and capacitance.</p>
+
+                <!-- Quote Box -->
+                <div class="quote-box">
+                    "Electricity is simply organized lightning governed by the majestic laws of nature and mathematics."
+                    <span class="quote-author">— Dr. Sohel Rana 🌟</span>
+                </div>
+
+                <!-- Section 1: History -->
+                <section id="history" class="section-box">
+                    <h2>📜 Historical Background of Electrostatics</h2>
+                    <p>
+                        The word <em>Electrostatics</em> originates from the Greek word <em>elektron</em> (meaning amber) and <em>statikos</em> (meaning stationary/staying still). Around 600 BCE, the ancient Greek philosopher Thales of Miletus discovered that when amber was rubbed against animal fur, it mysteriously acquired the power to attract light objects like feathers, dust, and dry leaves.
+                    </p>
+                    <p>
+                        Centuries later, in the late 18th century, pioneering scientists like Benjamin Franklin, Charles-Augustin de Coulomb, and Michael Faraday transformed these curiosities into precise mathematical frameworks, proving that electric forces hold atoms together and govern lightning flashes in the sky! ⚡
+                    </p>
+                </section>
+
+                <!-- Section 2: Notes & Concepts -->
+                <section id="notes" class="section-box">
+                    <h2>📖 Simplified Notes & Core Concepts</h2>
+                    
+                    <p><strong>1. Electric Charge ($q$):</strong> Charge is an intrinsic property of subatomic particles (protons are positive $+e$, electrons are negative $-e$). Like charges repel each other, while opposite charges attract like magnets. 🧲</p>
+                    
+                    <p><strong>2. Coulomb's Law:</strong> The electrostatic force ($F$) between two stationary point charges ($q_1$ and $q_2$) separated by distance ($r$) in a vacuum is directly proportional to the product of their charges and inversely proportional to the square of the distance between them.</p>
+                    <div class="math-eq">
+                        $$F = \frac{1}{4 \pi \varepsilon_0} \frac{q_1 q_2}{r^2}$$
+                    </div>
+
+                    <p><strong>3. Electric Field Lines ($\vec{E}$):</strong> An imaginary line drawn in an electric field such that the tangent at any point gives the direction of the electric field intensity. Field lines always start on positive charges and terminate on negative charges. They never cross each other!</p>
+
+                    <p><strong>4. Gauss's Law:</strong> Total electric flux ($\Phi_E$) passing through any closed hypothetical surface (Gaussian surface) is equal to the total charge ($q_{enc}$) enclosed by that surface divided by the permittivity of free space ($\varepsilon_0$).</p>
+                    <div class="math-eq">
+                        $$\Phi_E = \oint \vec{E} \cdot d\vec{A} = \frac{q_{enc}}{\varepsilon_0}$$
+                    </div>
+
+                    <p><strong>5. Capacitance ($C$):</strong> Capacitance is the ability of a body to store electrical charge per unit potential difference. For a parallel plate capacitor, it depends on plate area ($A$), distance ($d$), and dielectric medium ($\varepsilon$).</p>
+                    <div class="math-eq">
+                        $$C = \frac{Q}{V} = \frac{\varepsilon_0 A}{d}$$
+                    </div>
+                </section>
+
+                <!-- Section 3: Formula Table -->
+                <section id="formulas" class="section-box">
+                    <h2>📐 Exam Quick Formula Table</h2>
+                    <table class="formula-table">
+                        <tr>
+                            <th>Physical Quantity</th>
+                            <th>Symbol</th>
+                            <th>Formula / Equation</th>
+                            <th>SI Unit</th>
+                        </tr>
+                        <tr>
+                            <td>Coulomb's Force</td>
+                            <td>$F$</td>
+                            <td>$\frac{1}{4\pi\varepsilon_0}\frac{q_1 q_2}{r^2}$</td>
+                            <td>Newton (N)</td>
+                        </tr>
+                        <tr>
+                            <td>Electric Field Intensity</td>
+                            <td>$E$</td>
+                            <td>$F / q = \frac{1}{4\pi\varepsilon_0}\frac{q}{r^2}$</td>
+                            <td>N/C or V/m</td>
+                        </tr>
+                        <tr>
+                            <td>Electric Potential</td>
+                            <td>$V$</td>
+                            <td>$W / q = \frac{1}{4\pi\varepsilon_0}\frac{q}{r}$</td>
+                            <td>Volt (V)</td>
+                        </tr>
+                        <tr>
+                            <td>Electric Flux</td>
+                            <td>$\Phi_E$</td>
+                            <td>$E \cdot A \cdot \cos(\theta)$</td>
+                            <td>$N\cdot m^2 / C$</td>
+                        </tr>
+                        <tr>
+                            <td>Capacitance</td>
+                            <td>$C$</td>
+                            <td>$Q / V$</td>
+                            <td>Farad (F)</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- Section 4: Video & SWAYAM Link -->
+                <section id="video" class="section-box">
+                    <h2>🎥 Revision Video & Official SWAYAM Course</h2>
+                    <p>Watch the embedded video below for a quick visual recap of electrostatics, and explore the complete AICTE-approved SWAYAM course portal created by Dr. Sohel Rana:</p>
+                    
+                    <div class="video-container">
+                        <!-- Example educational physics overview video frame -->
+                        <iframe src="https://www.youtube-nocookie.com/embed/cy9dhuLijg4" title="Physics Electrostatics Revision" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="swayam-link-box">
+                        <div>
+                            <strong>Official AICTE-Approved SWAYAM MOOC Portal</strong><br>
+                            <span style="font-size: 0.9rem

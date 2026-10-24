@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Sohel Rana | Interactive Learning Hub - Physics & Mathematics</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #334155;
+            --accent-physics: #2563eb;
+            --accent-math: #16a34a;
+            --shadow-3d: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--primary-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow-3d);
+            overflow: hidden;
+            transform: perspective(1000px);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-img-container {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p.title {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Content Section */
+        .content {
+            padding: 40px;
+        }
+
+        .welcome-msg {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-msg h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .welcome-msg p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #475569;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Cards Grid for Subjects */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .subject-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+        }
+
+        .subject-card.physics::before { background: var(--accent-physics); }
+        .subject-card.math::before { background: var(--accent-math); }
+
+        .subject-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.12);
+        }
+
+        .subject-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .subject-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .subject-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        /* 3D Interactive Buttons */
+        .btn-3d {
+            display: inline-block;
+            text-align: center;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 0 #0f172a, 0 6px 10px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .physics-btn {
+            background-color: var(--accent-physics);
+            box-shadow: 0 4px 0 #1e40af, 0 6px 10px rgba(37,99,235,0.3);
+        }
+
+        .math-btn {
+            background-color: var(--accent-math);
+            box-shadow: 0 4px 0 #15803d, 0 6px 10px rgba(22,163,74,0.3);
+        }
+
+        .btn-3d:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 rgba(0,0,0,0.2), 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-3d:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .welcome-msg h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header with Profile and Introduction -->
+        <div class="header">
+            <div class="profile-img-container">
+                <!-- Ensure photo.jpg is in the same folder -->
+                <img src="photo.jpg" alt="Dr. Sohel Rana" class="profile-img">
+            </div>
+            <h1>Dr. Sohel Rana</h1>
+            <p class="title">Professor & Educational Innovator[cite: 2] | AIML & Engineering Sciences</p>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content">
+            <div class="welcome-msg">
+                <h2>Welcome to My Interactive Learning Portal! 🌟</h2>
+                <p>
+                    Hello dear learners! This digital space is specially crafted to make core sciences exciting, intuitive, and accessible. 
+                    By exploring the modules below, you will receive structured learning content, conceptual breakdowns, visual demonstrations, 
+                    and practical problem-solving techniques designed to build strong analytical foundations for your academic and professional journey. 🚀
+                </p>
+            </div>
+
+            <!-- Subject Cards Grid -->
+            <div class="grid">
+                <!-- Physics Card -->
+                <div class="subject-card physics">
+                    <div class="subject-icon">⚡</div>
+                    <h3>1) Physics Hub</h3>
+                    <p>
+                        <strong>Why Physics matters:</strong> Physics is the rulebook of nature! 🌌 Imagine playing a mobile video game without gravity or collision detection—it wouldn't make sense. 
+                        Physics explains why a touchscreen responds to your finger's electrical charge 📱, how Wi-Fi signals fly through walls, and why rollercoasters give you that thrilling drop stomach-flip! 🎢<br><br>
+                        <strong>What you'll discover here:</strong> Clear explanations of electromagnetic fields, forces, waves, and interactive simulations to master concepts effortlessly.
+                    </p>
+                    <a href="physics.html" class="btn-3d physics-btn">Explore Physics Chapter ➔</a>
+                </div>
+
+                <!-- Mathematics Card -->
+                <div class="subject-card math">
+                    <div class="subject-icon">📐</div>
+                    <h3>2) Mathematics Portal</h3>
+                    <p>
+                        <strong>Why Mathematics matters:</strong> Math is the universal language of logic! 🧠 Think of it as the secret code behind everything cool. 
+                        When your favorite app recommends a video on YouTube or Instagram, or when maps calculate the fastest route home avoiding traffic 🚗, math is working invisibly behind the scenes. 
+                        It teaches your brain how to solve complex puzzles step by step! 🧩<br><br>
+                        <strong>What you'll discover here:</strong> Engaging vector analyses, step-by-step problem solvers, shortcut tricks, and intuitive mathematical models.
+                    </p>
+                    <a href="math.html" class="btn-3d math-btn">Explore Mathematics Chapter ➔</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            &copy; 2026 Dr. Sohel Rana. Designed for Seamless Desktop & Mobile Web View.
+        </div>
+    </div>
+
+</body>
+</html>
